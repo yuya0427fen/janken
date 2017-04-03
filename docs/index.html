@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">    
+    <title>じゃんけんバトル</title>
+    <link rel="stylsheet" href="index.css">
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>じゃんけんバトル</h1>
+      </header>
+      <div data-role="fighters">
+        <h2>対戦相手一覧</h2>
+      </div>
+      <div data-role="stats">
+        <h2>統計</h2>
+      </div>
+      <div data-role="log">
+        <h2>個別の対戦記録</h2>
+        <ul></ul>
+      </div>
+    </div>
+    <template id="template-fighters">
+      <ul></ul>
+    </template>
+    <script src="player.js"></script>
+  </body>
+</html>

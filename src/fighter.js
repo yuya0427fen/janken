@@ -1,7 +1,37 @@
 import ChokiLover from "./fighter/choki-lover";
+import OddEven from "./fighter/odd-even";
+import Rotation from "./fighter/rotation";
+import FizzBuzz from "./fighter/fizzbuzz";
+
+class Introduction{
+  constructor(id, fighter, name, description){
+    this._id = id;
+    this._fighter = fighter;
+    this._name = name;
+    this._description = description;
+  }
+  get name(){
+    return this._name;
+  }
+  get description(){
+    return this._description;
+  }
+  get fighter(){
+    return this._fighter;
+  }
+  get klass(){
+    return this.fighter;
+  }
+  get id(){
+    return `fighter::${this._id}`;
+  }
+}
 
 const fighters = [
-  ChokiLover
+  new Introduction("choki-lover", ChokiLover, "チョキ大好きマン", "特定のカードが好きすぎて、それしか出さないプレーヤー。"),
+  new Introduction("odd-even", OddEven, "表か裏かマン", "2種類のカードを交互に出していくプレーヤー。"),
+  new Introduction("rotation", Rotation, "順番に出していくマン", "全部の種類のカードを、決まった順番で出していくプレーヤー。"),
+  new Introduction("fizzbuzz", FizzBuzz, "ふぃずばずマン", "「ふぃずばず」のリズムで手を決めていくプレーヤー。")
 ];
 
 export {fighters}

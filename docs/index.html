@@ -1,30 +1,38 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">    
-    <title>じゃんけんバトル</title>
-    <link rel="stylsheet" href="index.css">
-    <script src="index.js"></script>
-  </head>
-  <body>
-    <div id="app">
-      <header>
+
+<head>
+  <meta charset="utf-8">
+  <title>じゃんけんバトル</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="index.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <aside data-role="warning" class="hidden">
+      <div class="container">
+        <p>関数 action が定義されていません。文法ミスがないか確認しましょう。</p>
+      </div>
+    </aside>
+    <header>
+      <div class="container">
         <h1>じゃんけんバトル</h1>
-      </header>
+        <p>相手に勝てる戦略を見つけて、実装しよう</p>
+      </div>
+    </header>
+    <div data-layout="flex" class="container">
       <div data-role="fighters">
-        <h2>対戦相手一覧</h2>
+        <h2>何かエラー起きています</h2>
+        <p>
+          ブラウザの開発ツールを開き、「コンソール」に表示されているエラーメッセージを教員に伝えてください。
+        </p>
       </div>
-      <div data-role="stats">
-        <h2>統計</h2>
-      </div>
-      <div data-role="log">
-        <h2>個別の対戦記録</h2>
-        <ul></ul>
+      <div data-role="fixtures" class="hidden">
       </div>
     </div>
-    <template id="template-fighters">
-      <ul></ul>
-    </template>
-    <script src="player.js"></script>
-  </body>
+  </div>
+  <script src="player.js"></script>
+</body>
+
 </html>

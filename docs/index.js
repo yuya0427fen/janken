@@ -1959,12 +1959,45 @@ module.exports = ReactPropTypesSecret;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fighter_choki_lover__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fighter_odd_even__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fighter_rotation__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fighter_fizzbuzz__ = __webpack_require__(186);
 /* unused harmony export fighters */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return fighters; });
 
 
+
+
+
+class Introduction{
+  constructor(id, fighter, name, description){
+    this._id = id;
+    this._fighter = fighter;
+    this._name = name;
+    this._description = description;
+  }
+  get name(){
+    return this._name;
+  }
+  get description(){
+    return this._description;
+  }
+  get fighter(){
+    return this._fighter;
+  }
+  get klass(){
+    return this.fighter;
+  }
+  get id(){
+    return `fighter::${this._id}`;
+  }
+}
+
 const fighters = [
-  __WEBPACK_IMPORTED_MODULE_0__fighter_choki_lover__["a" /* default */]
+  new Introduction("choki-lover", __WEBPACK_IMPORTED_MODULE_0__fighter_choki_lover__["a" /* default */], "チョキ大好きマン", "特定のカードが好きすぎて、それしか出さないプレーヤー。"),
+  new Introduction("odd-even", __WEBPACK_IMPORTED_MODULE_1__fighter_odd_even__["a" /* default */], "表か裏かマン", "2種類のカードを交互に出していくプレーヤー。"),
+  new Introduction("rotation", __WEBPACK_IMPORTED_MODULE_2__fighter_rotation__["a" /* default */], "順番に出していくマン", "全部の種類のカードを、決まった順番で出していくプレーヤー。"),
+  new Introduction("fizzbuzz", __WEBPACK_IMPORTED_MODULE_3__fighter_fizzbuzz__["a" /* default */], "ふぃずばずマン", "「ふぃずばず」のリズムで手を決めていくプレーヤー。")
 ];
 
 
@@ -1985,12 +2018,14 @@ const fighters = [
 
 const FightView = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react__["createFactory"])(__WEBPACK_IMPORTED_MODULE_1__fighter__["a" /* Fighter */]);
 
-class FighterList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"]{
-  render(){
+class FighterList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+  render() {
     console.log(this.props.fighters.map(i => i.id));
-    return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].ul({className: "fighters"},
-      this.props.fighters.map(i => FightView({model: i, app: this.props.app, key: i.id}))
-    );
+    return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].div({ className: "panel" },
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].h2({}, "対戦できるプレーヤーたち"),
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].ul({ className: "fighters" },
+        this.props.fighters.map(i => FightView({ model: i, app: this.props.app, key: i.id }))
+      ));
   }
 }
 
@@ -4199,20 +4234,26 @@ module.exports = traverseAllChildren;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return win; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return draw; });
+/* unused harmony export loose */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Card; });
-class _Card{
-  constructor(type, name){
+class _Card {
+  constructor(type, name) {
     this._type = type;
     this._name = name;
   }
-  get type(){
+  get type() {
     return this._type;
   }
-  get name(){
+  get name() {
     return this._name;
   }
-  toString(){
+  toString() {
     return this.name;
+  }
+  equals(card){
+    return this.type == card.type;
   }
 }
 
@@ -4222,22 +4263,30 @@ const cards = [
   new _Card(2, "パー")
 ];
 
+function win(cardA, cardB) {
+  return (cardA.type + 1) % 3 == cardB.type;
+}
+function loose(cardA, cardB) {
+  return (cardB.type + 1) % 3 == cardA.type;
+}
+function draw(cardA, cardB) {
+  return cardA.type == cardB.type;
+}
+
 const Card = {
   list: cards,
-  create: function(id){
+  get length() {
+    return this.list.length;
+  },
+  create: function (id) {
     id = id < 0 ? 0 : id % 3;
     return this.list[id];
   },
-  win: function(cardA, cardB){
-    return (cardA.type + 1) % 3 == cardB.type;
-  },
-  loose: function(cardA, cardB){
-    return (cardB.type + 1) % 3 == cardA.type;
-  },
-  draw: function(cardA, cardB){
-    return cardA.type == cardB.type;
-  }
+  win: win,
+  draw: draw,
+  loose: loose
 };
+
 
 
 
@@ -4246,27 +4295,16 @@ const Card = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__strategy__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__card__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(33);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChokiLover; });
-
 
 
 class ChokiLover{
   constructor(){
-    this.favorite = __WEBPACK_IMPORTED_MODULE_1__card__["a" /* default */].create(1);
-  }  
-  toString(){
-    return this.name;
-  }  
+    this.favorite = __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(1);
+  }
   action(){
-    return __WEBPACK_IMPORTED_MODULE_0__strategy__["a" /* default */].sameCard(this.favorite);
-  }
-  static get name(){
-    return "チョキが大好き";
-  }
-  static get id(){
-    return "fighter::ChokiLover";
+    return this.favorite;
   }
 }
 
@@ -4284,69 +4322,97 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fighter__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__view_fighter_list__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fighter_player__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__fixture__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__view_fixture__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__stats__ = __webpack_require__(191);
+
+
+
+
 
 
 
 
 
 const FighterList = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react__["createFactory"])(__WEBPACK_IMPORTED_MODULE_3__view_fighter_list__["a" /* FighterList */]);
+const renderFixture = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react__["createFactory"])(__WEBPACK_IMPORTED_MODULE_6__view_fixture__["a" /* Fixture */]);
 
-class App{
-  constructor({el}){    
+function hide(el){
+  el.classList.add("hidden");
+}
+
+function show(el){
+  el.classList.remove("hidden");
+}
+
+class App {
+  constructor({ el, ready, matches }) {
     this.fighters = __WEBPACK_IMPORTED_MODULE_2__fighter__["a" /* default */];
+    this.ready = ready;
     this.els = {
       container: el,
-      fighters: el.querySelector("[data-role=fighters]")
+      fighters: el.querySelector("[data-role=fighters]"),
+      warning: el.querySelector("[data-role=warning]"),
+      fixtures: el.querySelector("[data-role=fixtures]")
     }
+    this.matches = matches;
   }
-  start(){
+  start() {
     console.log("Start app");
-    const list = FighterList({app: this, fighters: this.fighters});
-    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(list, this.els.fighters);    
+    if(!this.ready){
+      this.els.warning.classList.remove("hidden");
+    }
+    const list = FighterList({ app: this, fighters: this.fighters });
+    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(list, this.els.fighters);
   }
-  stop(){
+  stop() {
     console.log("app terminated")
   }
+  send(message, params={}){
+    switch(message){
+      case "start-match":
+        this.startMatch(params);
+        break;      
+    }
+  }
+  startMatch({fighter}){
+    const player = new __WEBPACK_IMPORTED_MODULE_4__fighter_player__["a" /* default */]();
+    const oppornent = new (fighter.klass)();
+    const fixtures = [];
+    for(let i = 0; i < this.matches; i++){
+      const fixture = new __WEBPACK_IMPORTED_MODULE_5__fixture__["a" /* default */](fighter, player.action(), oppornent.action());
+      fixtures.push(fixture);
+    }
+    const stats = new __WEBPACK_IMPORTED_MODULE_7__stats__["a" /* default */](fixtures);
+    const model = {
+      fixtures: fixtures,
+      stats: stats,
+      oppornent: fighter
+    };
+    const rendered = renderFixture({model: model});
+    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(rendered, this.els.fixtures);
+    show(this.els.fixtures);
+  }
 }
 
-window.addEventListener("DOMContentLoaded", e => {
+function ready(){
+  return typeof action === "function";
+}
+
+window.addEventListener("load", e => {
   const el = document.querySelector("#app");
-  const app = new App({el: el});
+  const app = new App({ el: el, ready: ready(), matches: 50 });
   app.start();
-  
+
   window.addEventListener("beforeunload", e => {
     app.stop();
-  }, {once: true});
-}, {once: true});
+  }, { once: true });
+}, { once: true });
 
 /***/ }),
-/* 36 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__strategy_same_card__ = __webpack_require__(37);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Strategy; });
-
-
-const Strategy = {
-  sameCard: __WEBPACK_IMPORTED_MODULE_0__strategy_same_card__["a" /* default */]
-};
-
-
-
-/***/ }),
-/* 37 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return action; });
-function action(prefered){
-  return prefered && prefered.type ? prefered.type : 1 ;
-}
-
-
-
-/***/ }),
+/* 36 */,
+/* 37 */,
 /* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4357,19 +4423,24 @@ function action(prefered){
 /* unused harmony export default */
 
 
-function fighterName(name) {
-  return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].span({ "data-role": "fighter-name" }, name)
+function name(fighter) {
+  return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].span({ "data-role": "fighter-name" }, fighter.name)
 }
 
-function fightButton({ fighter, app }) {
+function button({ fighter, app }) {
   return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].span({},
     __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].a({
       href: `#start-match?vs=${fighter.id}`,
       "data-role": "match-start",
       onClick: e => {
+        e.preventDefault();
         app.send("start-match", { fighter: fighter });
       },
     }, "対戦開始"));
+}
+
+function description(fighter){
+  return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].span({}, fighter.description);
 }
 
 class Fighter extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
@@ -4377,9 +4448,11 @@ class Fighter extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     this.porps.app.send("start-fight", { fighter: this.props.model });
   }
   render() {
-    return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].li({ className: "fighter", key: this.props.model.id },
-      fighterName(this.props.model.name),
-      fightButton({ fighter: this.props.model, app: this.props.app })
+    const fighter = this.props.model;
+    return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].li({ className: "fighter", key: fighter.id },
+      name(fighter),
+      description(fighter),
+      button({ fighter: fighter, app: this.props.app })      
     );
   }
 }
@@ -21918,6 +21991,352 @@ module.exports = quoteAttributeValueForBrowser;
 var ReactMount = __webpack_require__(87);
 
 module.exports = ReactMount.renderSubtreeIntoContainer;
+
+/***/ }),
+/* 185 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(33);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Rotation; });
+
+
+class Rotation{
+  constructor(startWith=0){
+    this.lastCard = startWith;
+  }
+  action(){
+    this.lastCard = (this.lastCard + 1) % __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].length;
+    return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(this.lastCard);
+  }
+}
+
+
+
+/***/ }),
+/* 186 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(33);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FizzBuzz; });
+
+
+class FizzBuzz{
+  constructor(initial=0){
+    this.seq = initial > -1 ? initial : 0;
+  }
+  action(){
+    this.seq = this.seq + 1;
+    if(this.seq % 15 == 0){
+      return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(Math.floor(Math.random() * 30));
+    }
+    if(this.seq % 5 == 0){
+      return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(2);
+    }
+    if(this.seq % 3 == 0){
+      return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(1);
+    }
+    return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(0);
+  }
+}
+
+
+
+/***/ }),
+/* 187 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(33);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OddEven; });
+
+
+class OddEven{
+  constructor(initial=0){
+    initial = initial > -1 ? initial : 0;
+    this.lastCard = initial % 2;
+  }
+  action(){
+    this.lastCard = (this.lastCard + 1) % 2;
+    return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(this.lastCard);
+  }
+}
+
+
+
+/***/ }),
+/* 188 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(33);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Player; });
+
+
+class Player{
+  action(){
+    if(typeof window.action === "function"){
+      const id= window.action();
+      return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(id);
+    }
+    return null;
+  }
+}
+
+
+
+/***/ }),
+/* 189 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stats__ = __webpack_require__(191);
+/* unused harmony export Fixture */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Fixture; });
+
+
+
+const WIN = 3;
+const DRAW = 1;
+const LOOSE = 0;
+
+function result(playerCard, oppornentCard) {
+  if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__card__["b" /* win */])(playerCard, oppornentCard)) {
+    return WIN;
+  }
+  if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__card__["c" /* draw */])(playerCard, oppornentCard)) {
+    return DRAW;
+  }
+  return LOOSE;
+}
+
+class Fixture {
+  constructor(oppornent, playerCard, oppornentCard) {
+    this._oppornent = oppornent;
+    this._playerCard = playerCard;
+    this._oppornentCard = oppornentCard;
+    this._result = result(playerCard, oppornentCard);
+  }
+  get oppornent(){
+    return this._oppornent;
+  }
+  get playerCard(){
+    return this._playerCard;
+  }
+  get oppornentCard(){
+    return this._oppornentCard;
+  }
+  get result() {
+    return this._result;
+  }
+  get resultInString() {
+    switch (this.result) {
+      case WIN:
+        return "W";
+      case DRAW:
+        return "D";
+      default:
+        return "L";
+    }
+  }
+  get stats(){
+    return this._stats;
+  }
+  toString() {
+    return `Player (${this.playerCard}) : ${this.oppornent.name} (${this.oppornentCard}) : ${this.resultInString}`;
+  }
+}
+
+
+
+
+/***/ }),
+/* 190 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stats__ = __webpack_require__(192);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Fixture; });
+/* unused harmony export default */
+
+
+
+class Result extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+  render() {
+    const model = this.props.model;
+    return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tr({ className: "fixture" },
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].td({ className: "player-card" }, model.playerCard.name),
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].td({ className: "oppornent-card" }, model.oppornentCard.name),
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].td({ className: "result" }, model.resultInString)
+    );
+  }
+}
+
+const renderResult = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react__["createFactory"])(Result);
+const renderStats = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react__["createFactory"])(__WEBPACK_IMPORTED_MODULE_1__stats__["a" /* default */]);
+
+function tableHeader() {
+  return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].thead({},
+    __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tr({},
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({}, "プレーヤー"),
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({}, "対戦相手"),
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({}, "結果")
+    )
+  );
+}
+
+class Fixture extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+  render() {
+    const model = this.props.model;
+    const fixtures = model.fixtures;
+    const stats = model.stats;
+    
+    return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].div({className: "panel"},
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].h2({}, `vs ${model.oppornent.name}`),
+      renderStats({model: stats}),
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].h3({}, "勝敗表"),
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].table({},
+        tableHeader(),
+        __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tbody({}, 
+          fixtures.map((i, j) => renderResult({ model: i, key: j }))
+        )
+      ),
+    );
+  }
+}
+
+
+
+
+/***/ }),
+/* 191 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(33);
+/* unused harmony export Stats */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Stats; });
+
+
+class Stats{
+  constructor(fixtures){
+    this._wins = fixtures.filter(i => i.result == 3);
+    this._draws = fixtures.filter(i => i.result == 1);
+    this._defeats = fixtures.filter(i => i .result == 0);
+    this._matches = fixtures.length;
+
+    this._cards = __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].list.map(card => {
+      const num = fixtures.filter(i => i.oppornentCard.equals(card)).length;
+      return {card: card, occurence: num, percentage: num / fixtures.length};
+    });
+  }
+  get matches(){
+    return this._matches;
+  }
+  get wins(){
+    return this._wins.length;    
+  }
+  get draws(){
+    return this._draws.length;
+  }
+  get defeats(){
+    return this._defeats.length;
+  }
+  get winPercentage(){
+    return this.wins / this.matches;
+  }
+  get drawPercentage(){
+    return this.draws / this.matches;
+  }
+  get defeatPercentage(){
+    return this.defeats / this.matches;
+  }
+  get cards(){
+    return this._cards;
+  }
+}
+
+
+
+
+/***/ }),
+/* 192 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* unused harmony export Stats */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Stats; });
+
+
+function percentage(ratio){
+  return Math.floor(ratio * 10000) / 100;
+}
+
+function matchStats(model){
+  return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].table({},
+    __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].thead({},
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tr({},
+        __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({}, "勝ち"),
+        __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({}, "引き分け"),
+        __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({}, "負け")
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tbody({}, 
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tr({},
+        __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].td({}, `${model.wins} (${percentage(model.winPercentage)} %)`),
+        __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].td({}, `${model.draws} (${percentage(model.drawPercentage)} %)`),
+        __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].td({}, `${model.defeats} (${percentage(model.defeatPercentage)} %)`)                
+      )
+    )
+  );
+}
+
+function cardStats(model){
+  const stats = model.cards;
+  return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].table({},
+    __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].thead({},
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tr({},
+        stats.map(record => {
+          const card = record.card;
+          return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({key: card.name},
+            card.toString()
+          )
+        })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tbody({}, 
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tr({},
+        stats.map(record => {
+          const card = record.card;
+          return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].td({key: card.name}, 
+            `${record.occurence} (${percentage(record.percentage)} %)`
+          )
+        })
+      )
+    )
+  );
+}
+
+class Stats extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"]{
+  render(){
+    const model = this.props.model;
+    return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].div({className: "stats", "data-role": "stats"},
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].h3({}, "勝ち負け"),
+      matchStats(model),
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].h3({}, "相手の出したカードの種類"),
+      cardStats(model)
+    );
+  }
+}
+
+
+
 
 /***/ })
 /******/ ]);

@@ -1,0 +1,126 @@
+html, body{
+  margin :0;
+  padding :0;
+  font-size: 18px;
+  color: #333;
+}
+.container{
+  margin: auto;
+  padding: 0 3rem;
+}
+
+[data-layout=flex]{
+  display: flex;
+}
+[data-layout=flex] .panel{
+  margin-right: 2rem;
+}
+
+[data-role=worning]{
+  color: white;
+  background-color: #FF8C8E;
+  margin:0;
+  padding: .5rem 0; 
+}
+[data-role=worning] p{
+  font-weight: bold;
+  margin: 0;
+  font-size: .88rem;
+}
+
+header{
+  color: white;
+  background-color: #333;
+  margin-bottom: 3rem;
+  padding: .75rem;
+  border-bottom: 2px #eee solid;
+}
+header > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: .5rem;
+}
+h1{
+  font-size: .88rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: inline-block;
+  grid-column: 1;
+}
+header p{
+  font-size: .88rem;
+  display: inline-block;
+  margin: 0;
+  grid-column: 2/4;
+}
+
+[data-role=fighters]{
+  flex-grow: 1;
+}
+[data-role=fixtures]{
+  flex-grow: 2;
+}
+
+h2{
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+}
+
+ul, ol{
+  list-style: none;
+  padding: 0;
+}
+
+.fighters{
+}
+.fighter{
+  display: block;
+  padding: 0;
+  margin-bottom: 3rem;
+}
+
+.fighter span{
+  display: block;
+}
+.fighter span[data-role=fighter-name]{
+  border-bottom: dotted 1px #ccc;
+  margin-bottom: 1rem;
+}
+.fighter span:last-child{
+  margin-top: 1rem;
+}
+
+[data-role=match-start]{
+  border: solid 1px #eee;
+  color: white;
+  background-color: #0095dd;
+  text-decoration: none;
+  padding: .4rem 1.5rem;
+  border-radius: 4px;
+  font-size: .88rem;
+}
+
+[data-role=match-start]:hover{
+  background-color: #00a5ed;
+}
+
+[data-role=match-start]:active{
+  box-shadow: inset 1px 1px 3px #666;
+}
+
+table{
+  width: 100%;
+}
+td{
+  text-align: center;
+}
+td,th{
+  padding: .5rem 0;
+}
+tr:nth-last-child(2n){
+  background-color: #eee;
+}
+
+.hidden{
+  display: none;
+}

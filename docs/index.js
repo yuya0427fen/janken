@@ -22169,6 +22169,7 @@ class Result extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   render() {
     const model = this.props.model;
     return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tr({ className: "fixture" },
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].td({ className: "match-number" }, this.props.matchNumber + 1),
       __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].td({ className: "player-card" }, model.playerCard.name),
       __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].td({ className: "oppornent-card" }, model.oppornentCard.name),
       __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].td({ className: "result" }, model.resultInString)
@@ -22182,6 +22183,7 @@ const renderStats = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react__["c
 function tableHeader() {
   return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].thead({},
     __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tr({},
+      __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({}, "試合"),
       __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({}, "プレーヤー"),
       __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({}, "対戦相手"),
       __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({}, "結果")
@@ -22194,15 +22196,15 @@ class Fixture extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     const model = this.props.model;
     const fixtures = model.fixtures;
     const stats = model.stats;
-    
-    return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].div({className: "panel"},
+
+    return __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].div({ className: "panel" },
       __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].h2({}, `vs ${model.oppornent.name}`),
-      renderStats({model: stats}),
+      renderStats({ model: stats }),
       __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].h3({}, "勝敗表"),
       __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].table({},
         tableHeader(),
-        __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tbody({}, 
-          fixtures.map((i, j) => renderResult({ model: i, key: j }))
+        __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tbody({},
+          fixtures.map((i, j) => renderResult({ model: i, key: j, matchNumber: j }))
         )
       ),
     );

@@ -14,8 +14,9 @@ html, body{
   margin :0;
   padding :0;
   font-size: 18px;
+  font-family: helvetica, arial, 'hiragino kaku gothic pro', meiryo, 'ms pgothic', sans-serif;
   color: #333;
-  background-color: #fafafd;
+  background-color: #fafafd;  
 }
 .container{
   margin: auto;
@@ -131,7 +132,10 @@ td{
 td,th{
   padding: .5rem 0;
 }
-tbody tr:nth-last-child(2n){
+thead tr{
+  background-color: #ccc;
+}
+tbody tr:nth-child(even){
   background-color: #eee;
 }
 

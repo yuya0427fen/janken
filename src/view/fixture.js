@@ -32,9 +32,12 @@ class Fixture extends Component {
     const model = this.props.model;
     const fixtures = model.fixtures;
     const stats = model.stats;
+    const maxPoints = fixtures.length * 3; // XXX
+    const points = fixtures.map(i => i.result).reduce((i, j) => i + j);
 
     return dom.div({ className: "panel" },
-      dom.h2({}, `vs ${model.oppornent.name}`),
+      dom.h2({}, 
+        `vs ${model.oppornent.name}（得点: ${Math.ceil(points/150*100)} / 100）`),
       renderStats({ model: stats }),
       dom.h3({}, "勝敗表"),
       dom.table({},

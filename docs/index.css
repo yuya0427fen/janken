@@ -1,8 +1,21 @@
+/*
+  ## colors
+
+  - Base : #007AB7
+  - highlighted: #45A1CF
+  - Complement: #E06D15
+  - Chart
+    - #0086AB
+    - #42AAC7
+    - #97D3E3  
+*/  
+
 html, body{
   margin :0;
   padding :0;
   font-size: 18px;
   color: #333;
+  background-color: #fafafd;
 }
 .container{
   margin: auto;
@@ -16,9 +29,9 @@ html, body{
   margin-right: 2rem;
 }
 
-[data-role=worning]{
+[data-role=warning]{
   color: white;
-  background-color: #FF8C8E;
+  background-color: #E06D15;
   margin:0;
   padding: .5rem 0; 
 }
@@ -32,18 +45,12 @@ header{
   color: white;
   background-color: #333;
   margin-bottom: 3rem;
-  padding: .75rem;
+  padding: .75rem 0;
   border-bottom: 2px #eee solid;
-}
-header > div {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: .5rem;
 }
 h1{
   font-size: .88rem;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin: 0 1rem  0 0;
   display: inline-block;
   grid-column: 1;
 }
@@ -59,6 +66,7 @@ header p{
 }
 [data-role=fixtures]{
   flex-grow: 2;
+  min-width: 70%;
 }
 
 h2{
@@ -72,11 +80,17 @@ ul, ol{
 }
 
 .fighters{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
 }
 .fighter{
   display: block;
   padding: 0;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
+  margin-right: 4rem;
+  flex-grow: 1;
+  box-sizing: border-box;
 }
 
 .fighter span{
@@ -93,7 +107,7 @@ ul, ol{
 [data-role=match-start]{
   border: solid 1px #eee;
   color: white;
-  background-color: #0095dd;
+  background-color: #007AB7;
   text-decoration: none;
   padding: .4rem 1.5rem;
   border-radius: 4px;
@@ -101,7 +115,7 @@ ul, ol{
 }
 
 [data-role=match-start]:hover{
-  background-color: #00a5ed;
+  background-color: #45A1CF;
 }
 
 [data-role=match-start]:active{
@@ -117,10 +131,30 @@ td{
 td,th{
   padding: .5rem 0;
 }
-tr:nth-last-child(2n){
+tbody tr:nth-last-child(2n){
   background-color: #eee;
 }
 
 .hidden{
   display: none;
+}
+
+.stats{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2rem;  
+  margin-bottom: 4rem;
+}
+
+.stats  > div{
+  display: inline-block; 
+}
+
+h3{
+  font-size: 1rem;
+  border-bottom: dotted 1px #999;
+}
+
+canvas{
+  margin: auto;
 }

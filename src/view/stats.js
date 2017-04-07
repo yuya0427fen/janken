@@ -14,7 +14,7 @@ function matchStats(model) {
     dom.thead({},
       dom.tr({},
         dom.th({}, "結果"),
-        dom.th({}, "回数（割合）"),
+        dom.th({}, "回数（割合）")
       )
     ),
     dom.tbody({},

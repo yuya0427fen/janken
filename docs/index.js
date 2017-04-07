@@ -22209,7 +22209,7 @@ class Fixture extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tbody({},
           fixtures.map((i, j) => renderResult({ model: i, key: j, matchNumber: j }))
         )
-      ),
+      )
     );
   }
 }
@@ -22294,7 +22294,7 @@ function matchStats(model) {
     __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].thead({},
       __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tr({},
         __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({}, "結果"),
-        __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({}, "回数（割合）"),
+        __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].th({}, "回数（割合）")
       )
     ),
     __WEBPACK_IMPORTED_MODULE_0_react__["DOM"].tbody({},

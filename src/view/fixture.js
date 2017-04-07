@@ -45,7 +45,7 @@ class Fixture extends Component {
         dom.tbody({},
           fixtures.map((i, j) => renderResult({ model: i, key: j, matchNumber: j }))
         )
-      ),
+      )
     );
   }
 }

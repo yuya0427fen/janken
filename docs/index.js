@@ -50440,7 +50440,7 @@ class Rotation{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(global) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(55);
@@ -50505,6 +50505,11 @@ class App {
     const player = new __WEBPACK_IMPORTED_MODULE_4__fighter_player__["a" /* default */]();
     const oppornent = new (fighter.klass)();
     const fixtures = [];
+    
+    global.fixtures = () => fixtures;
+    global.cards = () => fixtures.map(i => i.oppornentCard.type);
+    global.results = () => fixtures.map(i => i.result);
+
     for(let i = 0; i < this.matches; i++){
       const fixture = new __WEBPACK_IMPORTED_MODULE_5__fixture__["a" /* default */](fighter, player.action(fighter), oppornent.action());
       fixtures.push(fixture);
@@ -50534,6 +50539,7 @@ window.addEventListener("load", e => {
     app.stop();
   }, { once: true });
 }, { once: true });
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(357)))
 
 /***/ }),
 /* 354 */
@@ -50744,6 +50750,33 @@ class Stats extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 }
 
 
+
+
+/***/ }),
+/* 357 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ })

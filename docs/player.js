@@ -1,3 +1,3 @@
-function action(){
+function action(oppornent){
   return 1;
 }

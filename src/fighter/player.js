@@ -1,9 +1,9 @@
 import Card from "../card";
 
 class Player{
-  action(){
+  action(fighter){
     if(typeof window.action === "function"){
-      const id= window.action();
+      const id= window.action(fighter.id);
       return Card.create(id);
     }
     return null;

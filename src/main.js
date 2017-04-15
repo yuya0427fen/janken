@@ -53,7 +53,7 @@ class App {
     const oppornent = new (fighter.klass)();
     const fixtures = [];
     for(let i = 0; i < this.matches; i++){
-      const fixture = new Fixture(fighter, player.action(), oppornent.action());
+      const fixture = new Fixture(fighter, player.action(fighter), oppornent.action());
       fixtures.push(fixture);
     }
     const stats = new Stats(fixtures);

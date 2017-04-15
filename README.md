@@ -51,7 +51,7 @@
 `docs/player.js`に自分の手を決めるプログラムを記述します。
 具体的には状況に合わせて`action`の返り値を変えるように`action`を実装します。
 
-### `action`
+### `action(oppornent)`
 
 この関数は、次の3つの値のいずれかを返すと期待されています。
 これ以外の値を返した場合は、全て「グーを出したもの」として扱われます。
@@ -62,13 +62,13 @@
 |1|チョキを出す|
 |2|パーを出す|
 
-また引数は与えられません。
-対戦相手の情報や、これまでの手に関する情報は関数を呼び出して取得します（未実装）。
+また引数には、対戦相手のIDが文字列で与えられます。
+これまでの手に関する情報や、勝敗に関する情報は関数を呼び出して取得します。
 
 例えば「常にグーを返す」プログラムは次のように実装します。
 
 ~~~javascript
-function action(){
+function action(oppornent){
   return 0;
 }
 ~~~
@@ -76,8 +76,49 @@ function action(){
 これを改修し、完全ランダムに手を決めるプログラムは次のようになります。
 
 ~~~javascript
-function action(){
+function action(oppornent){
   const value = Math.random() * 3;
   return Math.floor(value);
 }
+~~~
+
+### `cards()`
+
+対戦中に対戦相手が出したカードの履歴が参照できます。
+この関数を呼ぶと、これまで出したカードが順に納められた配列が取得できます。
+
+例えば、これまで最も多く相手が出してきたカードに勝てるように手を選ぶには、次のように記述します。
+
+~~~javascript
+function action(oppornent){
+  const gu = cards().filter(i => i == 0);
+  const choki = cards.filter(i => i == 1);
+  const par = cards().filter(i => i == 2);
+  
+  const list = [
+    {value: gu.length, card: 2}, 
+    {value: choki.length, card: 0},
+    {value: par.length, card: 1}
+  ];
+  list = list.sort((i, j) => j.value - i.value);
+  return list[0].card;
+}
+~~~
+
+### `results()`
+
+これまでの勝敗が配列で取得できます。
+各要素の値と、勝敗との対応関係は次のようになります。
+
+
+|値|意味|
+|-----|---|
+|0|負け|
+|1|ひきわけ|
+|3|勝ち|
+
+例えば、負けの数は次のようにわかります。
+
+~~~javascript
+const defeats = results().filter(i => i == 0).length;
 ~~~

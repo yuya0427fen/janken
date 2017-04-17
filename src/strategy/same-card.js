@@ -1,5 +1,14 @@
-function action(prefered){
-  return prefered && prefered.type ? prefered.type : 1 ;
+class Strategy{
+  constructor(prefered){
+    this._prefered = prefered;
+  }
+  get prefered(){
+    return this._prefered;
+  }
+  action(){
+    return this.prefered;
+  }
 }
 
-export{action as default};
+export {Strategy};
+export {Strategy as default};

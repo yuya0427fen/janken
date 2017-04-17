@@ -1,11 +1,15 @@
 import Card from "../card";
+import Strategy from "../strategy/same-card";
 
 class ChokiLover{
   constructor(){
-    this.favorite = Card.create(1);
+    this._strategy = new Strategy(Card.create(1));
+  }
+  get strategy(){
+    return this._strategy;
   }
   action(){
-    return this.favorite;
+    return this.strategy.action();
   }
 }
 

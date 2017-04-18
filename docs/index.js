@@ -25148,8 +25148,10 @@ module.exports = g;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fighter_odd_even__ = __webpack_require__(352);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fighter_rotation__ = __webpack_require__(353);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fighter_fizzbuzz__ = __webpack_require__(351);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fighter_random__ = __webpack_require__(361);
 /* unused harmony export fighters */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return fighters; });
+
 
 
 
@@ -25183,7 +25185,8 @@ const fighters = [
   new Introduction("choki-lover", __WEBPACK_IMPORTED_MODULE_0__fighter_choki_lover__["a" /* default */], "チョキ大好きマン", "特定のカードが好きすぎて、それしか出さないプレーヤー。"),
   new Introduction("odd-even", __WEBPACK_IMPORTED_MODULE_1__fighter_odd_even__["a" /* default */], "表か裏かマン", "2種類のカードを交互に出していくプレーヤー。"),
   new Introduction("rotation", __WEBPACK_IMPORTED_MODULE_2__fighter_rotation__["a" /* default */], "順番に出していくマン", "全部の種類のカードを、決まった順番で出していくプレーヤー。"),
-  new Introduction("fizzbuzz", __WEBPACK_IMPORTED_MODULE_3__fighter_fizzbuzz__["a" /* default */], "ふぃずばずマン", "「ふぃずばず」のリズムで手を決めていくプレーヤー。")
+  new Introduction("fizzbuzz", __WEBPACK_IMPORTED_MODULE_3__fighter_fizzbuzz__["a" /* default */], "ふぃずばずマン", "「ふぃずばず」のリズムで手を決めていくプレーヤー。"),
+  new Introduction("random", __WEBPACK_IMPORTED_MODULE_4__fighter_random__["a" /* default */], "さいころ大好きマン", "全てをさいころの目で決めていくプレーヤー")
 ];
 
 
@@ -50899,6 +50902,38 @@ class Strategy{
     this._matches++;    
     const card = this.getAction()(this.matches);
     return card;
+  }
+}
+
+
+
+
+/***/ }),
+/* 361 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(18);
+/* unused harmony export Random */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Random; });
+
+
+class Random{
+  constructor(){
+    const goo = Math.random();
+    const choki = Math.random() * (1.0 - goo) + goo;
+    this._thresholds = [goo, choki, 1.0];    
+  }
+  get thresholds(){
+    return this._thresholds;
+  }
+  nextCard(){
+    const p = Math.random();
+    const index = this.thresholds.findIndex(i => p < i);    
+    return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(index);
+  }
+  action(){
+    return this.nextCard();
   }
 }
 

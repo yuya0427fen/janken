@@ -50400,25 +50400,44 @@ class ChokiLover{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__strategy_mod__ = __webpack_require__(360);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FizzBuzz; });
 
 
-class FizzBuzz{
-  constructor(initial=0){
-    this.seq = initial > -1 ? initial : 0;
+
+class FizzBuzz {
+  constructor() {
+    const defaultAction = matches => __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(0);
+    const fizz = matches => __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(0);
+    const buzz = matches => __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(1);
+    const fizzbuzz = matches => __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(2);
+    const actions = [
+      fizzbuzz,
+      ,
+      ,
+      fizz,
+      ,
+      buzz,
+      fizz,
+      ,
+      ,
+      buzz,
+      fizz,
+      ,
+      buzz,
+      ,
+      ,
+    ];
+    this._strategy = new __WEBPACK_IMPORTED_MODULE_1__strategy_mod__["a" /* default */]({
+      actions: actions,
+      defaultAction: defaultAction
+    });
   }
-  action(){
-    this.seq = this.seq + 1;
-    if(this.seq % 15 == 0){
-      return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(Math.floor(Math.random() * 30));
-    }
-    if(this.seq % 5 == 0){
-      return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(2);
-    }
-    if(this.seq % 3 == 0){
-      return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(1);
-    }
-    return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(0);
+  get strategy(){
+    return this._strategy;
+  }
+  action() {
+    return this.strategy.action();
   }
 }
 
@@ -50430,17 +50449,21 @@ class FizzBuzz{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__strategy_round_robin__ = __webpack_require__(359);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OddEven; });
 
 
+
 class OddEven{
-  constructor(initial=0){
-    initial = initial > -1 ? initial : 0;
-    this.lastCard = initial % 2;
+  constructor(){
+    const cards = [__WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(0), __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(1)];
+    this._strategy = new __WEBPACK_IMPORTED_MODULE_1__strategy_round_robin__["a" /* default */](cards);
+  }
+  get strategy(){
+    return this._strategy;
   }
   action(){
-    this.lastCard = (this.lastCard + 1) % 2;
-    return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(this.lastCard);
+    return this.strategy.action();
   }
 }
 
@@ -50452,16 +50475,21 @@ class OddEven{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__strategy_round_robin__ = __webpack_require__(359);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Rotation; });
 
 
+
 class Rotation{
-  constructor(startWith=0){
-    this.lastCard = startWith;
+  constructor(){
+    const cards = [__WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(0), __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(1), __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(2)];
+    this._strategy = new __WEBPACK_IMPORTED_MODULE_1__strategy_round_robin__["a" /* default */](cards);
+  }
+  get strategy(){
+    return this._strategy;
   }
   action(){
-    this.lastCard = (this.lastCard + 1) % __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].length;
-    return __WEBPACK_IMPORTED_MODULE_0__card__["a" /* default */].create(this.lastCard);
+    return this.strategy.action();
   }
 }
 
@@ -50579,6 +50607,7 @@ window.addEventListener("load", e => {
 
 "use strict";
 /* unused harmony export Strategy */
+/* unused harmony export SameCard */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Strategy; });
 class Strategy{
   constructor(prefered){
@@ -50800,6 +50829,76 @@ class Stats extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   }
   componentDidMount(){
     console.log("stats is mounted");
+  }
+}
+
+
+
+
+/***/ }),
+/* 359 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Strategy */
+/* unused harmony export RoundRobin */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Strategy; });
+class Strategy{
+  constructor(cards){
+    this._cards = cards;
+    this._index = cards.length - 1;
+  }
+  get cards(){
+    return this._cards;
+  }
+  nextCard(){
+    this._index = (this._index + 1) % this.cards.length;
+    return this.cards[this._index];
+  }
+  action(){
+    return this.nextCard();
+  }
+}
+
+
+
+
+
+/***/ }),
+/* 360 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Strategy */
+/* unused harmony export Mod */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Strategy; });
+class Strategy{
+  constructor({actions=[], defaultAction}){
+    this._divisor = actions.length;
+    this._default = defaultAction;
+    this._actions = actions;
+    this._matches = 0;
+  }
+  get divisor(){
+    return this._divisor;
+  }
+  get default(){
+    return this._default;
+  }
+  get actions(){
+    return this._actions;
+  }
+  get matches(){
+    return this._matches;
+  }
+  getAction(){
+    const index = this.matches % this.divisor;
+    return this.actions[index] || this.default;
+  }
+  action(){
+    this._matches++;    
+    const card = this.getAction()(this.matches);
+    return card;
   }
 }
 

@@ -1,13 +1,16 @@
 import Card from "../card";
+import Strategy from "../strategy/round-robin";
 
 class OddEven{
-  constructor(initial=0){
-    initial = initial > -1 ? initial : 0;
-    this.lastCard = initial % 2;
+  constructor(){
+    const cards = [Card.create(0), Card.create(1)];
+    this._strategy = new Strategy(cards);
+  }
+  get strategy(){
+    return this._strategy;
   }
   action(){
-    this.lastCard = (this.lastCard + 1) % 2;
-    return Card.create(this.lastCard);
+    return this.strategy.action();
   }
 }
 

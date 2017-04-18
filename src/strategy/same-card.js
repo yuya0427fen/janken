@@ -10,5 +10,5 @@ class Strategy{
   }
 }
 
-export {Strategy};
+export {Strategy, Strategy as SameCard};
 export {Strategy as default};

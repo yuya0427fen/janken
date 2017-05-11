@@ -16,3 +16,17 @@ function action(oppornent){
 return PA
 }
 
+function abs(value){
+  let result = value;
+  if(result < 0){
+    result = result * -1;
+  }
+  return result;
+}
+ function distance(value1, value2){
+   let result = 0;
+   result= value2 - value1;
+   result =abs(result);
+   return resurt;
+ }
+
